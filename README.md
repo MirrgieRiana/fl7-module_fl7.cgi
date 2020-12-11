@@ -2,7 +2,7 @@
 # Installing
 
 ```
-$ fl7m pull 'https://raw.githubusercontent.com/MirrgieRiana/fl7_lib-cgi/main/module.json?'
+$ fl7m pull 'https://raw.githubusercontent.com/MirrgieRiana/fl7-module_fl7.cgi/main/module.json?'
 ```
 
 # Usage
