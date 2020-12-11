@@ -1,0 +1,35 @@
+@STRICT;
+
+lib_cgi : {
+
+  encode_uri : \_::(URI)()::(REPLACE)(/ /g; "+");
+  decode_uri : \_::(REPLACE)(/\+/g; " ")::(FROM_URI)();
+  escape_html : \_::(REPLACE)(/([^ -~]|[&<>"'])/g; \"&#x$(BASE(CHARCODES(_).0; 16));");
+
+  output_http : headers, content -> (
+    headers[] | "$(_.0): $(_.1)" => OUT;
+    "" => OUT;
+    content => OUT;
+  );
+
+  CGI : {
+
+    create : _, dir_applications, dir_templates -> _ {
+      dir_applications;
+      dir_templates;
+
+      params = ENV.REQUEST_METHOD === "POST" ? (
+        {[(&IN ?: "") => SPLIT >> "&" | [SPLIT(_; "=")] => GREP >> \($#_ === 2) | {(decode_uri(_.0)) : decode_uri(_.1)}[]]}
+      ) : (
+        {[(ENV.QUERY_STRING ?: "") => SPLIT >> "&" | [SPLIT(_; "=")] => GREP >> \($#_ === 2) | {(decode_uri(_.0)) : decode_uri(_.1)}[]]}
+      );
+
+    };
+
+    load_application : _, pathInfo, arguments -> USE(RESOLVE(_.dir_applications, ".$pathInfo.fl7"))(lib_cgi; _; arguments);
+    load_template : _, name, arguments -> USE(RESOLVE(_.dir_templates, "$name.fl7"))(lib_cgi; _; arguments);
+
+  };
+
+};
+lib_cgi
