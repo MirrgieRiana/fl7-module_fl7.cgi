@@ -12,9 +12,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run a multi-line script
         run: |
-          echo "$GITHUB_WORKSPACE"
-          ls
           cd "$GITHUB_WORKSPACE"
           curl https://raw.githubusercontent.com/MirrgieRiana/fluorite-7/master/install.bash | bash
-          ./fluorite7 test/main.fl7
-          exit 1
+          ./fluorite7 test/test.fl7
