@@ -2,4 +2,9 @@ lib_cgi : USE("main.fl7");
 
 assert_equals : expected, actual -> (actual === expected || ERROR("$actual !== $expected"));
 
+OUT("Test Start");
+
+OUT("escape_html");
 assert_equals("a&#x26;b&#x3c;c&#x3e;d&#x27;e&#x22;f"; lib_cgi.escape_html("a&b<c>d'e\"f"));
+
+OUT("OK");
