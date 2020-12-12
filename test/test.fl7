@@ -1,0 +1,5 @@
+lib_cgi : USE("main.fl7");
+
+assert_equals : expected, actual -> (actual === expected || ERROR("$actual !== $expected"));
+
+assert_equals(""; lib_cgi.escape_html("a&b<c>d'e\"f"));
