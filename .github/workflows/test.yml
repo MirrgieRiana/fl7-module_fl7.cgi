@@ -1,0 +1,20 @@
+name: Test
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a multi-line script
+        run: |
+          echo "$GITHUB_WORKSPACE"
+          ls
+          cd "$GITHUB_WORKSPACE"
+          curl https://raw.githubusercontent.com/MirrgieRiana/fluorite-7/master/install.bash | bash
+          ./fluorite7 test/main.fl7
+          exit 1
