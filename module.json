@@ -1,6 +1,7 @@
 {
   "name": "fl7.cgi",
   "files": [
+    "module.json",
     "main.fl7"
   ]
 }
