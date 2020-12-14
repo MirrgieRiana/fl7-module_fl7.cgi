@@ -2,6 +2,8 @@
   "name": "fl7.cgi",
   "files": [
     "module.json",
+    "LICENSE",
+    "README.md",
     "main.fl7"
   ]
 }
